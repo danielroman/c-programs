@@ -1,0 +1,143 @@
+body {
+    margin: 0px auto;
+    width: 1200px;
+    font-family: verdana;
+}
+
+#encabezado{ 
+  background-image:url(../images/logoyencabezado.png);
+  height: 130px;
+  margin: 0px;
+  padding: 0px;
+}
+
+div #redessociales{
+    float: right;
+    margin: 100px;
+}
+img #imagenredsocial{
+    padding-right: 10px;	
+   }
+
+div #cuerpo{
+    background-image:url(../images/fondo-banner.png);
+    height: 436px;
+}
+
+div #menu{
+    background-image:url(../images/fondo-menu.png);
+}
+
+#menu ul{
+    list-style-type: none;
+    padding-top: 14px;
+    padding-left: 175px;
+    padding-bottom: 14px;
+    }
+
+#menu li{
+    display: inline;
+    padding-left: 20px;
+}
+
+#menu a{
+    text-decoration: none;
+    color: #FBA417;
+    font-size: 18;
+}
+#menu a:visited{
+     color: #99C363;
+     text-decoration: none;
+
+}
+
+#contenidosuperior{
+   width: 1200px;
+   height: 416px;
+}
+
+#botoncuerpo{
+   float: right;
+}
+
+#imagencuerpo{
+   float: left;
+   margin-left: 100px; 
+}
+
+#contenidoinferior{
+   margin-top: 100px;
+   margin-left: 65px;
+   float: left;
+}
+ 
+#contenidoinferior ul{ 
+    float:left;
+    padding-right: 250px;
+}
+
+#contenidoinferior li{
+    display: inline;
+    padding-left: 0px;
+}
+
+#contenidoinferior img{
+    float:left;
+    padding-left: 40px; 
+}
+
+#contenidoinferior a{
+    text-decoration: none;
+    color: #99C363;
+    padding-left: 7px;
+    font-size: 18;
+}
+
+.letra {   
+    font-size: 12;
+    color: #666666; 
+    margin-left: 30px;
+}
+.colorletra {
+ color: #99C363;
+}
+
+#botonestexto{
+      float: right;
+      padding-top: 50px;
+      padding-right: 20px;
+}
+
+#piedepagina{
+     background-image:url(../images/pie-de-pagina.png);
+     height: 112px;
+     margin-top: 250px;
+}
+
+#menupiedepagina {
+    padding-top: 20px;
+    margin-left: 90px;
+    float: left;
+
+}
+#menupiedepagina ul{
+    list-style-type: none;
+    padding: 0px;
+    }
+
+#menupiedepagina span{
+
+    padding-right: 300px;
+}
+
+#menupiedepagina li{
+    display: inline;
+}
+
+#menupiedepagina a{
+
+    text-decoration: none;
+    color: #57595b;
+    font-size: 12;
+}
+
