@@ -60,13 +60,6 @@ div #menu{
    float: right;
 }
 
-#botoncuerpo input{
-    width:55px;
-    height: 198px;
-    background-image: url(../images/boton-banner.png);
-    display: table;
-    border-radius: 10px;
-}
 #imagencuerpo{
    float: left;
    margin-left: 100px; 

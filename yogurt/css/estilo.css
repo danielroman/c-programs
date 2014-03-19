@@ -56,20 +56,8 @@ div #menu{
    height: 416px;
 }
 
-#boton{
-   width: 55px;
-   height: 198px;
- }
 #botoncuerpo{
    float: right;
-}
-
-#botoncuerpo input{
-    width:55px;
-    height: 198px;
-    background-image: url(../images/boton-banner.png);
-    display: table;
-    border-radius: 10px;
 }
 
 #imagencuerpo{
@@ -98,28 +86,6 @@ div #menu{
  color: #99C363;
 }
 
-
-#botonestexto input{
-      width: 116px;
-      height: 32px;
-      border-radius: 10px;
-      background-repeat: no-repeat;
-
-     font-family: verdana;
-     color: white;
-}
-
-.botoninformacion1{ 
-     background-color:#8ABF40;
-}
-
-.botoninformacion2{
-     background-color:#8ABF40;
-}
-
-.botoninformacion3{
-     background-color:#8ABF40;
-}
 #botonestexto{
       float: right;
       padding-top: 50px;
