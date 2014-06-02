@@ -7,6 +7,7 @@
 #define COL 50
 #define ESC 27
 
+//http://www.openvim.com/tutorial.html
 
 struct Coordenadas{
     int x;
