@@ -8,6 +8,7 @@
 #define COL 50
 #define ESC 27
 #define SPC 32
+#define MAX_BOMBS 3
 
 //http://www.openvim.com/tutorial.html
 
@@ -20,7 +21,8 @@ struct Coordenadas{
 struct Bomba{
     int x;
     int y;
-    int explosion;
+    int temporizador;
+    bool puesta;
 };
 
 void mapa(char tablero[FILAS][COL]){
@@ -70,60 +72,67 @@ void inicializar(char tablero[FILAS][COL]){
 			    tablero[fila][col] = 'L';
 }
 
-//hay que mejorar el codigo chapuza momentanea
-void explotar_bomba(char tablero[FILAS][COL], struct Coordenadas *jugador){
+void explotar_bomba(char tablero[FILAS][COL], struct Coordenadas bomba){
 
-	    int alcanceizq = 0;
-	    int alcanceder = 0;
-	    int alcanceaba = 0;
-	    int alcancearr = 0;
+    int alcanceizq = 0;
+    int alcanceder = 0;
+    int alcanceaba = 0;
+    int alcancearr = 0;
 
-	    while(alcanceizq < 5){
-		if(tablero[jugador->y][jugador->x - alcanceizq] != 'T'){
-		    tablero[jugador->y][jugador->x - alcanceizq] = 'x';
-		    alcanceizq++;
-		}else 
-		    alcanceizq = 5;
-	    }
+    while(alcanceizq < 5){
+	if(tablero[bomba.y][jugador->x - alcanceizq] != 'T'){
+	    tablero[jugador->y][jugador->x - alcanceizq] = 'x';
+	    alcanceizq++;
+	}else 
+	    alcanceizq = 5;
+    }
 
-	    while(alcanceder < 5){
-		if(tablero[jugador->y][jugador->x + alcanceder] != 'T'){
-		    tablero[jugador->y][jugador->x + alcanceder] = 'x';
-		    alcanceder++;
-		}else 
-		    alcanceder = 5;
-	    }
-	    
-	    while(alcancearr < 5){
-		if(tablero[jugador->y - alcancearr][jugador->x] != 'T'){
-		    tablero[jugador->y - alcancearr][jugador->x] = 'x';
-		    alcancearr++;
-		}else 
-		    alcancearr = 5;
-	    }
-		
-	    while(alcanceaba < 5){
-		if(tablero[jugador->y + alcanceaba][jugador->x] != 'T'){
-		    tablero[jugador->y + alcanceaba][jugador->x] = 'x';
-		    alcanceaba++;		   
-		}else 
-		    alcanceaba = 5;
-	    }
+    while(alcanceder < 5){
+	if(tablero[jugador->y][jugador->x + alcanceder] != 'T'){
+	    tablero[jugador->y][jugador->x + alcanceder] = 'x';
+	    alcanceder++;
+	}else 
+	    alcanceder = 5;
+    }
+
+    while(alcancearr < 5){
+	if(tablero[jugador->y - alcancearr][jugador->x] != 'T'){
+	    tablero[jugador->y - alcancearr][jugador->x] = 'x';
+	    alcancearr++;
+	}else 
+	    alcancearr = 5;
+    }
+
+    while(alcanceaba < 5){
+	if(tablero[jugador->y + alcanceaba][jugador->x] != 'T'){
+	    tablero[jugador->y + alcanceaba][jugador->x] = 'x';
+	    alcanceaba++;		   
+	}else 
+	    alcanceaba = 5;
+    }
+}
+
+void temporizador(){
+
+
 }
 
 void poner_bomba(char tablero[FILAS][COL], struct Coordenadas *jugador){ 
-    if(jugador->bombas < 3)
+    if(jugador->bombas < MAX_BOMBS)
 	if(tablero[jugador->y + 1][jugador->x] != 'T'){
-	     tablero[jugador->y + 1][jugador->x] = 'X'; 
-	     jugador->bombas++;
+	    for(int i = 0, bool bomba_puesta = false; i<MAX_BOMBS && bomba_puesta; i++)
+		if(!bombas[i].puesta){
+		    bombas[i].x = jugador->x;
+		    bombas[i].y = jugador->y+1;
+		    bombas[i].puesta = true;
+	           tablero[bombas[i].y][bombas[i].x] = 'X'; 
+		}
+	    temporizador(bombas);
+	    jugador->bombas++;
 	}
-    //realizar temporizador
-
-    //explotar_bomba(tablero, jugador);
 }
 
-
-void mover(int user_input, struct Coordenadas *jugador, char tablero[FILAS][COL]){
+void mover(int user_input, struct Coordenadas *jugador, char tablero[FILAS][COL], struct Bomba bombas[]){
     switch(tolower(user_input)){
 	case 'w':
 	case KEY_UP:
@@ -154,17 +163,24 @@ void mover(int user_input, struct Coordenadas *jugador, char tablero[FILAS][COL]
 	    }
 	    break;	
 	case SPC:
-	    poner_bomba(tablero, jugador);
+	    poner_bomba(tablero, jugador, bombas);
 	    break;
+	//case 'g':
+	//    explotar_bomba(tablero, jugador);
+	//    break;
     }
     tablero[jugador->y][jugador->x] = 'U';
 }
-
 int main(int argc, char *argv[]){
 
     struct Coordenadas jugador = {1, 1}; //posicion inicial del jugador
     char tablero[FILAS][COL];
+    struct Bomba bombas[MAX_BOMBS];
     int user_input;
+    for(int i = 0; i< MAX_BOMBS; i++){
+	bombas[i].temporizador = 1000;
+	bombas[i].puesta = false;
+    }
 
     initscr();
     halfdelay(1);
@@ -174,7 +190,15 @@ int main(int argc, char *argv[]){
     mapa(tablero);
     inicializar(tablero);
     while ((user_input = getch()) != ESC){	
-	mover(user_input, &jugador, tablero);
+	mover(user_input, &jugador, tablero, bombas);
+
+        for(int i = 0; i<MAX_BOMBS; i++)
+	   if(bombas[i].bomba_puesta)
+	      if(bombas[i].temporizador <= 0)
+		 explotar_bomba(bombas[i])
+	      else
+		 bombas[i].temporizador --; 
+
 	pintar_mapa(tablero, jugador);
     }
     endwin();
