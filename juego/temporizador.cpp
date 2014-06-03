@@ -1,25 +1,44 @@
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int main()
-{
-    clock_t start_t, end_t; 
-    double total_t;
-    int i;
+#define MAX_BOMBS 3
 
-    start_t = clock();
-    printf("Starting of the program, start_t = %ld\n", start_t);
+struct Bomba{
+    int x;
+    int y;
+    bool puesta;
+    int temporizador;
+    time_t fechaInicio;
+};
 
-    printf("Going to scan a big loop, start_t = %ld\n", start_t);
-    for(i=0; i< 300000000; i++)
-    {
+int main(){
+
+    struct Bomba bombas[MAX_BOMBS];
+
+    //hacemo la inicializacion de la bomba
+
+
+    for (int i = 0; i < MAX_BOMBS; i++){	
+	if (bombas[i].temporizador != 0){
+	    bombas[i].temporizador = 10000;
+	    printf("Bomba: %i, Temporizador: %i\n", i, bombas[i].temporizador);
+	}
     }
-    end_t = clock();
-    printf("End of the big loop, end_t = %ld\n", end_t);
 
-    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-    printf("Total time taken by CPU: %f\n", total_t);
-    printf("Exiting of the program...\n");
+    //hacer temporizador
 
-    return(0);
+    for (int i = 0; i < MAX_BOMBS; i++){
+	if(bombas[i].temporizador <= 0)
+	    printf("bomba: %i Ha explotado \n", i + 1);
+	else{
+	    bombas[i].temporizador = bombas[i].temporizador - 1;
+	}
+//    }
+
+
+
+
+
+    return EXIT_SUCCESS;
 }
